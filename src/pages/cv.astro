@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+---
+<Layout title="CV">
+  <Nav />
+  <main class="space-y-10 leading-relaxed text-paper/90">
+    <div>
+      <h2 class="text-xl font-semibold">Curriculum Vitae</h2>
+      <p class="mt-2 text-sm text-muted">
+        Your download should start automatically. <a id="cv-download-link"
+          href="/cv.pdf"
+          download
+          class="text-paper underline decoration-panel underline-offset-4 hover:decoration-accent"
+	  >
+          If it didn't, click here.
+        </a>
+      </p>
+    </div>
+
+   </main>
+</Layout>
+
+<script>
+  const link = document.getElementById("cv-download-link");
+  if (link instanceof HTMLAnchorElement) {
+    link.click();
+  }
+</script>

@@ -1,0 +1,44 @@
+---
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const rawLinks: NavLink[] = [
+  { label: "Home", href: "/" },
+  { label: "Education", href: "/education" },
+  { label: "CV", href: "/cv" },
+  { label: "Blog", href: "/blog" },
+  { label: "Links", href: "/links" },
+  {label: "Projects", href: "/projects"},
+];
+
+const current = Astro.url.pathname;
+
+const links = rawLinks.map((link) => ({
+  ...link,
+  active:
+    current === link.href ||
+    (link.href !== "/" && current.startsWith(link.href)),
+}));
+---
+<header class="mb-12">
+  <div class="flex items-start gap-5">
+    <img
+      src="/profile.jpg"
+      alt="Portrait of me"
+      class="h-20 w-20 shrink-0 rounded-sm object-cover grayscale"
+    />
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Ahmad Shami</h1>
+      <p class="mt-1 font-mono text-sm text-muted">
+      M2 cybersecurity (Cysec) - Université Grenoble Alpes/Ensimag
+      </p>
+    </div>
+  </div>
+
+    <nav class="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
+    {links.map((link) => <a href={link.href} class:list={["border-b pb-0.5 transition-colors", link.active ? "border-accent text-paper" : "border-transparent text-muted hover:border-muted hover:text-paper"]}>{link.label}</a>)}
+  </nav>
+    <div class="mt-8 border-t border-panel"></div>
+</header>

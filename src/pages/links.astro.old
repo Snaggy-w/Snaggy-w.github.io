@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import { linkGroups } from "../data/links";
+---
+<Layout title="Ahmad — Links">
+  <Nav />
+  <main class="space-y-10">
+    {linkGroups.map((group) => (
+      <section>
+        <h3 class="font-mono text-sm text-muted">{group.group}</h3>
+        <div class="mt-3 divide-y divide-panel border-t border-panel">
+          {group.entries.map((entry) => (
+            <a 
+              href={entry.url}
+              target="_blank"
+              rel="noreferrer"
+              class="group flex items-center justify-between py-3 text-paper/90 transition-colors hover:text-paper"
+            >
+              <span>{entry.label}</span>
+              <span class="font-mono text-xs text-muted transition-colors group-hover:text-accent">
+                {new URL(entry.url).hostname.replace("www.", "")}
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
+</Layout>

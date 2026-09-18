@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import { linkGroups } from "../data/links";
+---
+<Layout title="Links">
+  <Nav />
+  <main class="space-y-10">
+    {linkGroups.map((group) => (
+      <section>
+        <h3 class="font-mono text-sm text-muted">{group.group}</h3>
+        <div class="mt-3 grid gap-2">
+          {group.entries.map((entry) => (
+           <a   
+              href={entry.url}
+              target="_blank"
+              rel="noreferrer"
+              class="group flex items-center gap-4 rounded-sm border border-panel bg-panel/40 px-4 py-3 transition-all duration-150 ease-out hover:-translate-y-0.5 hover:border-accent/60 hover:bg-panel hover:shadow-[0_10px_24px_-14px_rgba(201,138,59,0.4)]"
+            >
+              <img
+                src={`/icons/${entry.icon}.svg`}
+                alt=""
+                class="h-5 w-5 shrink-0 opacity-75 grayscale transition-opacity group-hover:opacity-100"
+              />
+              <span class="flex-1 text-paper/90 transition-colors group-hover:text-paper">
+                {entry.label}
+              </span>
+              <span class="font-mono text-xs text-muted transition-colors group-hover:text-accent">
+                {new URL(entry.url).hostname.replace("www.", "")}
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
+</Layout>

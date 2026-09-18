@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+
+interface Repo {
+  name: string;
+  url: string;
+  description: string | null;
+  language: string | null;
+  stars: number;
+  updated: string;
+}
+
+let repos: Repo[] = [];
+try {
+  const res = await fetch(
+    "https://api.github.com/users/Snaggy-w/repos?sort=pushed&per_page=100"
+  );
+  if (!res.ok) throw new Error(`GitHub API responded ${res.status}`);
+  const data = await res.json();
+
+  repos = data
+    .filter((repo: any) => !repo.fork && !repo.archived)
+    .map((repo: any) => ({
+      name: repo.name,
+      url: repo.html_url,
+      description: repo.description,
+      language: repo.language,
+      stars: repo.stargazers_count,
+      updated: new Date(repo.pushed_at).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
+    }));
+} catch (err) {
+  console.error("Failed to fetch GitHub repos:", err);
+}
+---
+<Layout title="Projects">
+  <Nav />
+  <main class="space-y-6">
+    <p class="text-sm text-muted">
+      Public repositories from <a
+        href="https://github.com/Snaggy-w"
+        class="text-paper underline decoration-panel underline-offset-4 hover:decoration-accent"
+      >
+        my GitHub
+      </a>.
+    </p>
+
+    {repos.length === 0 && (
+      <p class="text-muted">No public repositories yet — check back soon.</p>
+    )}
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      {repos.map((repo) => (
+      <a
+          href={repo.url}
+          target="_blank"
+          rel="noreferrer"
+          class="group flex flex-col gap-2 rounded-sm border border-panel bg-panel/40 px-4 py-3 transition-all duration-150 ease-out hover:-translate-y-0.5 hover:border-accent/60 hover:shadow-[0_10px_24px_-14px_rgba(201,138,59,0.4)]"
+        >
+          <h3 class="text-paper/90 transition-colors group-hover:text-paper">
+            {repo.name}
+          </h3>
+          {repo.description && (
+            <p class="text-sm text-muted">{repo.description}</p>
+          )}
+          <div class="mt-auto flex items-center gap-3 pt-2 font-mono text-xs text-muted">
+            {repo.language && <span>{repo.language}</span>}
+            {repo.stars > 0 && (
+              <span class="transition-colors group-hover:text-accent">
+                ★ {repo.stars}
+              </span>
+            )}
+            <span class="ml-auto">{repo.updated}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>

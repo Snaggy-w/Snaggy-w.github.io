@@ -1,11 +1,61 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import { technicalSkills } from "../data/skills";
+import { languages } from "../data/languages";
 ---
+<Layout title="Ahmad Shami">
+  <Nav />
+  <main class="space-y-16">
+    <section class="space-y-6 leading-relaxed text-paper/90">
+      <p>
+        I'm a Master's student in cybersecurity, aspiring to become a researcher in
+        low-level systems' security. My research passion revolves around: kernels and operating
+        systems' components, mobile technologies and systems (especially Android), IoT
+        devices, Virtualization technologies/Hypervisors and Browser engines. My interest
+        sits at the intersection of systems research and applied security, specifically in the
+        areas of reverse engineering and binary exploitation.
+      </p>
+      <p class="text-muted">
+        Currently exploring Internship and PhD opportunities in vulnerability research and
+        program/system analysis. See the <a href="/cv" class="text-paper underline decoration-panel underline-offset-4 hover:decoration-accent">CV</a> for details, or my <a href="/blog" class="text-paper underline decoration-panel underline-offset-4 hover:decoration-accent">blog history</a> for recent work.
+      </p>
+    </section>
 
-<Layout>
-	<Welcome />
+    <section>
+      <h2 class="font-mono text-sm text-muted">Technical Skills</h2>
+      <ul class="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+        {technicalSkills.map((skill) => (
+          <li class="flex items-baseline gap-3">
+            <span class="text-accent">—</span>
+            <span class="text-paper/90">{skill}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-mono text-sm text-muted">Languages</h2>
+      <div class="mt-5 space-y-5">
+        {languages.map((lang) => (
+          <div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-paper/90">{lang.name}</span>
+              <span class="font-mono text-xs text-muted">{lang.level}</span>
+            </div>
+            <div
+              class="mt-2 h-1.5 w-full overflow-hidden bg-panel"
+              role="progressbar"
+              aria-label={`${lang.name} proficiency`}
+              aria-valuenow={lang.percent}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <div class="h-full bg-accent" style={`width: ${lang.percent}%`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
 </Layout>
