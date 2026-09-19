@@ -10,7 +10,15 @@
   --color-muted: #8b8f98;
   --color-accent: #c98a3b;
 }
+:root[data-theme="light"] {
+  --color-ink: #f6f5f1;
+  --color-panel: #e4e1d8;
+  --color-paper: #14161c;
+  --color-muted: #6b6f76;
+  --color-accent: #a5672a;
+}
 
 body {
   background-color: var(--color-ink);
+  transition: background-color 150ms ease-out;
 }

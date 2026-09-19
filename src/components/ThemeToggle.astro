@@ -1,0 +1,36 @@
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle color theme"
+  class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-panel text-muted transition-colors hover:border-accent/60 hover:text-paper"
+>
+  <svg data-icon="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-4 w-4">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+  </svg>
+  <svg data-icon="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="hidden h-4 w-4">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z" />
+  </svg>
+</button>
+
+<script is:inline>
+  const btn = document.getElementById("theme-toggle");
+  const sun = btn.querySelector('[data-icon="sun"]');
+  const moon = btn.querySelector('[data-icon="moon"]');
+
+  function sync() {
+    const isLight = document.documentElement.dataset.theme === "light";
+    sun.classList.toggle("hidden", isLight);
+    moon.classList.toggle("hidden", !isLight);
+    btn.setAttribute("aria-pressed", String(isLight));
+  }
+
+  btn.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("theme", next);
+    sync();
+  });
+
+  sync();
+</script>
