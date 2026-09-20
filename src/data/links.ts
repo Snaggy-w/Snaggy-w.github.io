@@ -26,7 +26,7 @@ export const linkGroups: LinkGroup[] = [
     group: "CTF",
     entries: [
       { label: "CTFtime", url: "https://ctftime.org/user/152106", icon: "ctftime" },
-      { label: "Hack The Box", url: "https://app.hackthebox.com/profile/624282", icon: "hackthebox" },
+      { label: "Hack The Box", url: "https://app.hackthebox.com/public/users/624282", icon: "hackthebox" },
       { label: "cylab (picoCTF)", url: "https://learn.cylabacademy.org/users/Snaggy", icon: "cylab" },
       { label: "TryHackMe", url: "https://tryhackme.com/r/p/Ahmadshami", icon: "tryhackme" },
     ],
