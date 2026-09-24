@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import { technicalSkills } from "../data/skills";
+import { Hobbies } from "../data/hobbies";
 import { languages } from "../data/languages";
 ---
 <Layout title="Ahmad Shami">
@@ -56,6 +57,18 @@ import { languages } from "../data/languages";
           </div>
         ))}
       </div>
+    </section>
+
+    <section>
+      <h2 class="font-mono text-sm text-muted">Hobbies & Interests</h2>
+      <ul class="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+        {Hobbies.map((hobby) => (
+          <li class="flex items-baseline gap-3">
+            <span class="text-accent">—</span>
+            <span class="text-paper/90">{hobby}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   </main>
 </Layout>
